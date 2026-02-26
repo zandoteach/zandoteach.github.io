@@ -55,4 +55,48 @@ body, h1, h2, p, ul, li {
     padding: 10px;
     text-align: center;
   }
-  
+  <-- ******************************** -->
+
+/* Remove the dark box */
+.comment {
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0;
+  margin: 0 0 1.5rem 0;  /* spacing between comments */
+}
+
+/* Remove dark box behind header/avatar */
+.comment header {
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0;
+}
+
+/* Avatar styling */
+.comment header img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;    /* make avatar round */
+  box-shadow: none !important;
+}
+
+/* Username and timestamp */
+.comment header strong {
+  font-weight: 600;
+}
+
+.comment header time {
+  opacity: 0.6;
+  font-size: 0.85rem;
+}
+
+/* Comment body */
+.comment .body {
+  margin-top: 0.5rem;
+  line-height: 1.5;
+}
