@@ -97,6 +97,7 @@ body, h1, h2, p, ul, li {
 
 /* Comment body */
 .comments .body {
-  margin-top: 0.5rem;
+  margin-left: 42 px;
+    margin-top: 0.5rem;
   line-height: 1.5;
 }
