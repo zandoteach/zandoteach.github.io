@@ -58,7 +58,7 @@ body, h1, h2, p, ul, li {
   <-- ******************************** -->
 
 /* Remove the dark box */
-.comment {
+.comments {
   background: none !important;
   border: none !important;
   box-shadow: none !important;
@@ -67,7 +67,7 @@ body, h1, h2, p, ul, li {
 }
 
 /* Remove dark box behind header/avatar */
-.comment header {
+.comments header {
   background: none !important;
   border: none !important;
   box-shadow: none !important;
@@ -78,7 +78,7 @@ body, h1, h2, p, ul, li {
 }
 
 /* Avatar styling */
-.comment header img {
+.comments header img {
   width: 32px;
   height: 32px;
   border-radius: 50%;    /* make avatar round */
@@ -86,17 +86,17 @@ body, h1, h2, p, ul, li {
 }
 
 /* Username and timestamp */
-.comment header strong {
+.comments header strong {
   font-weight: 600;
 }
 
-.comment header time {
+.comments header time {
   opacity: 0.6;
   font-size: 0.85rem;
 }
 
 /* Comment body */
-.comment .body {
+.comments .body {
   margin-top: 0.5rem;
   line-height: 1.5;
 }
