@@ -1,9 +1,3 @@
-
----
-title: "My Simple Website"
-issue_number: 1
----
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,6 +20,17 @@ issue_number: 1
   </header>
 
   <main>
+
+*******************************************************
+    <!-- 1) A place to render comments -->
+    <section id="comments"></section>
+
+    <!-- 2) A hidden element (or any element) carrying the issue number -->
+    <div id="comments-config" data-owner="zandoteach"
+         data-repo="zandoteach.github.io"
+         data-issue-number="1"></div>
+***********************************************************
+    
     <section>
       <h2>About Me</h2>
       <p>I'm a computer science teacher passionate about our amazing students.</p>
@@ -41,5 +46,50 @@ issue_number: 1
     <p>&copy; 2023 My Simple Website. All rights reserved.</p>
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+  ***********************************************************
+ <!-- 3) Your fetch script goes here, just before </body> -->
+  <script>
+    (async function () {
+      const cfg = document.getElementById('comments-config');
+      const owner = cfg.dataset.owner;
+      const repo  = cfg.dataset.repo;
+      const issueNumber = cfg.dataset.issueNumber;
+
+      const commentsEl = document.getElementById('comments');
+      commentsEl.textContent = 'Loading comments…';
+
+      // Public, unauthenticated request (limited rate). 
+      // For private repos or higher rate limits, you’d add an Authorization header
+      // BUT never expose a real token in client-side code for public sites.
+      const url = `https://api.github.com/repos/${owner}/${repo}/issues/${issueNumber}/comments`;
+
+      try {
+        const res = await fetch(url, {
+          headers: {
+            'Accept': 'application/vnd.github+json'
+          }
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const comments = await res.json();
+
+        // Render simple comment list
+        commentsEl.innerHTML = comments.map(c => `
+          <article class="comment">
+            <header>
+              <img src="${c.user.avatar_url}" alt="${c.user.login}" width="24" height="24" />
+              <strong>@${c.user.login}</strong> – <time datetime="${c.created_at}">${new Date(c.created_at).toLocaleString()}</time>
+            </header>
+            <div class="body">${(c.body_html || c.body).replace(/\n/g, '<br>')}</div>
+          </article>
+        `).join('') || '<p>No comments yet.</p>';
+      } catch (err) {
+        commentsEl.innerHTML = `<p>Could not load comments (${err.message}).</p>`;
+      }
+    })();
+  </script>
+
+  ***********************************************************
+
 </body>
 </html>
